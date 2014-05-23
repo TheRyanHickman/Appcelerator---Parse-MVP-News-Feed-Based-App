@@ -33,7 +33,10 @@
 		var _ = require('lib/underscore');
 		var Parse = require("lib/ti.parse")();
 		
-
+		var Parse_Rest_Key = '';
+		var Parse_App_Key = '';
+		var FB_APPID = '';
+		
 /* ******************************************
  * 
  *  Setup Controllers
@@ -41,7 +44,9 @@
  */	
 
 		var launch = require("controllers/launch");
-	
+		var registerPushServicesIOS = require("controllers/registerPushServicesIOS");
+		var parseLoginCheck = require("controllers/parseLoginCheck");
+		
 		
 /* ******************************************
  * 
@@ -50,8 +55,8 @@
  *  
  */
 
-
-		launch();
+	
+		launch(Parse_App_Key, Parse_Rest_Key, FB_APPID);
 
 		
 		
