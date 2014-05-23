@@ -12,9 +12,9 @@ var launch = function(reset, APP_ID, REST_KEY, FB_APPID) {
 	
 	
 	var win = Titanium.UI.createWindow({  
-	    barColor: '#000',
+	    barColor: '#34313e',
 	    tintColor:'black',
-	    backgroundColor:'#000',
+	    backgroundColor:'#fff',
 	    backgroundImage: '', //set image for background action bar on android
 	    includeOpaqueBars: false,
 		translucent: true,
@@ -44,7 +44,7 @@ var launch = function(reset, APP_ID, REST_KEY, FB_APPID) {
 	
 	//Activity Indiactor to manage user expectations associated with network activity
 	var activityIndicator = Ti.UI.createActivityIndicator({
-		  color: '#89D700',
+		  color: '#34313e',
 		  font: {fontFamily:'Helvetica Neue', fontSize:26, fontWeight:'bold'},
 		  message: '',
 		  style:((Ti.Platform.osname == 'android') ? Ti.UI.ActivityIndicatorStyle.DARK : Ti.UI.iPhone.ActivityIndicatorStyle.LIGHT),
