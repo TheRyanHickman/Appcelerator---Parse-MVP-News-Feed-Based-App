@@ -1,3 +1,18 @@
-Parse + Appcelerator (iOS and Android Base News Feed based app framework)
+Parse + Appcelerator (iOS and Android News Stream based app framework)
+======
+
+This framework is designed to launch a stream based app.
+
+* Login with Facebook
+* Create User Account
+* View Stream 
 
 
+App
+======
+
+
+
+Server
+======
+Server appliance to produce news feed, query stream, accept "likes"
