@@ -19,7 +19,7 @@
         }
     };
     
-    Ti.include("parse-1.2.11.js");
+    Ti.include("/lib/parse-1.2.11.js");
     
     
     Parse.localStorage = {
