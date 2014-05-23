@@ -71,7 +71,7 @@ var feed = function() {
 				    top:32,
 				    height: 20,
 				    left: '5%',
-				    image: 'img/peakpmenuhead.png',
+				    image: 'img/menuImage.png',
 				   
 				});
 	
