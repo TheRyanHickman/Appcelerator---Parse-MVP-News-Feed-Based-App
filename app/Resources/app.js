@@ -46,7 +46,8 @@
 		var launch = require("controllers/launch");
 		var registerPushServicesIOS = require("controllers/registerPushServicesIOS");
 		var parseLoginCheck = require("controllers/parseLoginCheck");
-		
+		var getStream = require("controllers/getStream");
+		var feed = require("controllers/feed");
 		
 /* ******************************************
  * 
