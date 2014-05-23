@@ -5,38 +5,16 @@
  */
 
 
-var getStream = function(mainView, launchCommentWin, launchComment) {
+var getStream = function(mainView) {
 
-			Ti.API.info("called reload contents...");
 			
-			
-			//refreshbtn.hide();
-		  	
-		  	//if (Ti.Platform.osname != 'android') activityIndicator.show();
-					if (typeof Titanium.App.Properties.getObject("cached") != 'undefined')
-					{
-						
-				        tracker.trackEvent({ category: "Feed", action: "Get Local", label: "Success", value: 1 });
-					   	data = Titanium.App.Properties.getObject("cached");
-				      	//drawActivityFeed(data, mainView);
-			     	}	
-		
-		
-			var url = "http://peakapi.parseapp.com/api/stream/"+Parse.User.current().id; //Titanium.App.Properties.getString("uid");
-			
-				console.log(url);
+			var url = Titanium.App.Properties.getString("apiEndpoint") +Parse.User.current().id; 
 			
 				var client = Ti.Network.createHTTPClient({
-			     // function called when the response data is available
 			     
 			     onload : function(e) {
 			      
-			        Ti.API.info("successful http request...");
-			      
-			      	console.log(this.responseText);
-			      
-			     	//activityIndicator.hide();
-			        tracker.trackEvent({ category: "Feed", action: "Get Remote", label: "Success", value: 1 });
+			        tracker.trackEvent({ category: "Stream", action: "Update", label: "Success", value: 1 });
 				   	var data = eval('('+this.responseText+')');
 			        Titanium.App.Properties.setObject("cached", data);
 			      	
@@ -96,7 +74,6 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 							
 							
 							userBlok.addEventListener('click', function(e){
-								//alert('launch profile'+data[i].user.objectId);
 								console.log(e.source.id);
 								//showProfile(userBlok.id);
 								
@@ -127,16 +104,6 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 		  					
 		  					
 		  					
-		  					
-		  					
-		  				
-		  					
-		  					 
-			         
-		  					
-		  					
-		  					
-		  					
 							var item = Ti.UI.createView({
 								layout: 'vertical',
 								width: '100%',
@@ -156,9 +123,6 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 							});
 							
 							
-							//itemBox.add(userBlok);
-							
-							
 							
 							
 							if (typeof data[i].image != 'undefined'){
@@ -175,102 +139,13 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 														
 										
 									if (typeof  data[i].image.url != 'undefined')  cachedImageView('feedPics', data[i].image.url, itemImg);	
-														
-									var loveShow = Ti.UI.createImageView({ preventDefaultImage: true,
-										 zIndex: 20,
-										 top: 20,
-							             image: '/img/love.png',
-							             opacity: 0,
-							             id: data[i].objectId
-									});			
-									
-									itemImg.add(loveShow);
-									
 											
 															
 									itemBox.add(itemImg);
 							}
 							
 							
-							console.log('*****New Post*******');
 							
-					
-							
-							if (typeof data[i].intakeData != 'undefined')
-							{
-								
-								var metricBlock = Ti.UI.createView({
-									width: '95%',
-									 zIndex: 99,
-									 textAlign: 'right',
-									
-									 height: 55,
-									 top: 260,
-									 
-									
-									 //layout: 'horizontal'
-									
-								});
-								
-								itemImg.add(metricBlock);
-								
-								countballs = 0;
-								
-								function capitaliseFirstLetter(string)
-									{
-									    return string.charAt(0).toUpperCase() + string.slice(1);
-									}
-								
-								data[i].intakeData.forEach(function(met){
-												
-												//console.log( met );
-												
-												var metric = Ti.UI.createButton({
-													backgroundColor: '#B6F245',
-													right: 5 + (countballs * 50),
-													borderRadius: '20px',
-													//title: capitaliseFirstLetter(met),
-													name: met,
-													opacity: .8,
-													top: 5,
-													textAlign: 'center',
-													selected: false,
-													width: '85px',
-													height: '85px',
-													color: '#1e1e1e',
-													bottom: '100px',
-													font: { fontFamily: 'OpenSans-Bold', fontSize: ((Ti.Platform.osname == 'android') ? 10 : 10) },
-												});
-												
-												countballs++;
-												
-												var metricTxt = Ti.UI.createLabel({
-													color: '#1e1e1e',
-													text: capitaliseFirstLetter(met),
-													title: capitaliseFirstLetter(met),
-													name: met,
-													top: 15,
-													width: '100%',
-													textAlign: 'center',
-													font: { fontFamily: 'OpenSans-Bold', fontSize: ((Ti.Platform.osname == 'android') ? 10 : 10) },
-											
-												});
-												
-												metric.add(metricTxt);
-												
-												
-												metricBlock.add(metric);
-												
-											});
-								
-								
-							}
-							
-							
-							
-							//var string = '#hello This is an #example of some text with #hash-tags - http://www.example.com/#anchor but dont want the link';
-							//string.replace(/(^|\s)(#[a-z\d-]+)/ig, "$1<span class='hash_tag'>$2</span>");
-							//console.log(string);
 							
 														
 							var itemRules = Ti.UI.createLabel({
@@ -288,7 +163,7 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 							
 							
 							var deets = Ti.UI.createView({
-								//backgroundColor: '#f7f7f7',//'#f7f7f7',
+								
 								layout: 'horizontal',
 								height:'90px',
 								top: 10,
@@ -312,34 +187,6 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 								font: { fontFamily: 'OpenSans-light', fontSize: ((Ti.Platform.osname == 'android') ? 18 : 18) }
 							});
 						
-							var comments = Ti.UI.createLabel({
-								text: data[i].commentsCount,//data[i].details,
-								color: '#818181',
-								width: '18%',
-								left: 5,
-								textAlign: 'left',
-								top: 10	,
-								font: { fontFamily: 'OpenSans-light', fontSize: ((Ti.Platform.osname == 'android') ? 18 : 18) }
-							});
-							
-							
-							var morelbl = Ti.UI.createLabel({
-								text: 'More',
-								color: '#818181',
-								width: '15%',
-								left: 5,
-								textAlign: 'left',
-								top: 8	,
-								font: {
-									fontFamily: 'OpenSans-light', 
-									fontSize: ((Ti.Platform.osname == 'android') ? 18 : 18) }
-							});
-							
-							
-							console.log('Like Post:');
-							console.log(data[i].likePost);
-							console.log('_________________________');
-							
 							
 							var likebtn = Ti.UI.createImageView({ preventDefaultImage: true,
 							            width: 30,
@@ -351,98 +198,10 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 							});
 
 							
-							var commentbtn = Ti.UI.createImageView({ preventDefaultImage: true,
-										 width: 30,
-										 top: 0,
-							             left: 0,
-							             image: '/img/comment.png',
-							             id: data[i].objectId
-							});
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							var morebtn = Ti.UI.createImageView({ preventDefaultImage: true,
-										 width: 30,
-										 top: 0,
-							             left: 0,
-							             image: '/img/more.png',
-							             id: data[i].objectId
-							});
-							
-							
-							
-							function moredialog()
-							{
-								 var dialog = Ti.UI.createOptionDialog({
-								 	  cancel: 1,
-									  options: ['Report Post', "Cancel"],
-									  selectedIndex: 2,
-									  destructive: 0,
-								});
-								
-								 dialog.addEventListener("click", function(x){
-								 			if (x.index == 0)
-								 			{
-								 				
-								 				
-								 				var Report = Parse.Object.extend("Reports");
-												var report = new Report();
-												
-												report.set('user', Parse.User.current());
-												report.set('reportingPost', data[i].objectId);
-												
-										       				report.save(null, {
-																success: function(activtyupdate) {
-																
-																console.log('data returned success reponse');
-																				   		
-																				
-																}, 
-																error: function(e, error){
-																			alert(error);
-																}
-															}); 	
-										       				
-								 				
-								 			}
-									
-								});
-						
-							     dialog.show();
-							}
-							
-							morelbl.addEventListener("click", function(e){
-							 moredialog();
-							});
-							
-							morebtn.addEventListener("click", function(e){
-							 moredialog();
-							});
-							
-							
-							commentbtn.x = 'hey';
-							commentbtn.comments = data[i].commmentsArray;
-							
-							console.log(data[i].commmentsArray);
-							
-							
-							
 							
 							deets.add(likebtn);
 							deets.add(likes);
 							
-							deets.add(commentbtn);
-							deets.add(comments);
-							
-							
-							deets.add(morebtn);
-							deets.add(morelbl);
 							
 							
 							
@@ -566,155 +325,38 @@ var getStream = function(mainView, launchCommentWin, launchComment) {
 			         
 			        
 			       
-			       var spinArea = Ti.UI.createImageView({ preventDefaultImage: true,
-								image: '/img/homespinner.png',
-								top: 0,
-								width: '291px',
-								
-								opacity: .4,
-								anchorPoint : {
-							        x : 0.5,
-							        y : 0.5
-							    },
-							});
-			        
-			        
-			        
-			        var strongMan = Ti.UI.createImageView({ preventDefaultImage: true,
-								image: '/img/profile.png',
-								top: -50,
-								width: 60,
-								zIndex: 220,
-								opacity: 1,
-								anchorPoint : {
-							        x : 0.5,
-							        y : 0.5
-							    },
-							});
-			        
-			       
-			         var areacut = Ti.UI.createImageView({ preventDefaultImage: true,
-								image: '/img/areacut.png',
-								top: 150,
-								width: '100%',
-								zIndex: 100,
-								opacity: 1,
-								anchorPoint : {
-							        x : 0.5,
-							        y : 0.5
-							    },
-							}); 
-			        
-			        
-			        
-			        var areaaDeets = Ti.UI.createLabel({
-								text: 'This is your feed',
-								color: '#818181',
-								width: '85%',
-								textAlign: 'center',
-								top: 40,
-								zIndex: 110,
-								font: { fontFamily: 'OpenSans-light', fontSize: ((Ti.Platform.osname == 'android') ? 18 : 18) }
-							});
-			        
-			        
-			         var subAreaaDeets = Ti.UI.createLabel({
-								text: 'When you record what you eat and how you workout it will show up here!',
-								color: '#818181',
-								width: '85%',
-								textAlign: 'center',
-								top: 10,
-								zIndex: 110,
-								font: { fontFamily: 'OpenSans-light', fontSize: ((Ti.Platform.osname == 'android') ? 14 : 14) }
-							});
-			        
-			        
-			        
-			        var firstBtn = Ti.UI.createButton({
-			        	backgroundColor: '#1a1a1a',
-			        	top: 10,
-			        	height: 60,
-			        	color: '#818181',
-			        	title: 'Record First Intake',
-			        	font: { fontFamily: 'OpenSans-light', fontSize: ((Ti.Platform.osname == 'android') ? 18 : 18) },
-			        	width: '85%'
-			        });
-			        
-			        
-			        firstBtn.addEventListener('click', function(e){
-			        	intakeProcess();
-			        });
-			        
-			        
-			        var matrix2d = Ti.UI.create2DMatrix();
-					matrix2d = matrix2d.rotate(180); // in degrees
-					// matrix2d = matrix2d.scale(1.5); // scale to 1.5 times original size
-					var a = Ti.UI.createAnimation({
-					    transform: matrix2d,
-					    duration: 12000,
-					    repeat: 1000
-					});
-					 
-					spinArea.animate(a);
-			        
-			        
-			        
-			        
-			       mainView.backgroundColor = '#1e1e1e'; 
-			       mainView.height = '100%';
 			       
 			        
-			       //if( typeof Parse.User.current().get('activityCount') == 'undefined'){
-			       	// var data = new Array();
-			       //}
+			      
 			       
-			      // alert(Parse.User.current().get('activityCount'));
-			       
-			       if(data.length == 0)
-			       {
-			       
-				       mainView.add(areacut);
-				       mainView.add(spinArea);
-				       mainView.add(strongMan);
-				       mainView.add(areaaDeets); 
-				       mainView.add(subAreaaDeets);
-				       mainView.add(firstBtn);
-				   
-				   } else {      
-			       	
-			       		mainView.add(feedTable);
-		  		}
+			       mainView.add(feedTable);
+		  		
 			      	
 			      	
 			      	
 			      
 			     },
-			     // function called when an error occurs, including a timeout
 			     onerror : function(e) {
 			         Ti.API.debug(e.error);
-			         tracker.trackEvent({ category: "User_Feed", action: "Get", label: "Error:"+e.error, value: 1 });
-			        //alert(e.error);
+			         tracker.trackEvent({ category: "Stream", action: "Update", label: "Error:"+e.error, value: 1 });
 			        
 			        var dlg = Titanium.UI.createAlertDialog({
-											   		title: 'Network Error',
-												    message:'Please check your network connection', 
-												    buttonNames: ['Ok']
-											  });	
-											  
-											  dlg.show();
+							  title: 'Network Error',
+							  message:'Please check your network connection', 
+							  buttonNames: ['Ok']
+					});	
+					dlg.show();
+					
 			        
 			     },
 			     cache : true, 
-			     timeout : 5000  // in milliseconds
+			     timeout : 5000 
 			 });
-			 // Prepare the connection.
+
 			 client.setRequestHeader("Content-Type", "multipart/form-data");
 			 client.open("POST", url);
-			 // Send the request.
 			
-			 client.send({
-			 	uid: Titanium.App.Properties.getString("uid")
-			 });
+			 client.send({ uid: Parse.User.current().id });
 		
 		
 			

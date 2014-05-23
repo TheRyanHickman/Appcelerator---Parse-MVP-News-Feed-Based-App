@@ -211,8 +211,8 @@ var sliderMenu = function() {
 				
 	traywin.add(profile_Card);			
 	
-	// Menu Titles
-				var menuTitles = [
+	
+				var menuOptions = [
 				   
 				    {title: 'Home', color: '#fff', action:'home', img: '/img/home.png' },
 				    {title: 'Settings', color: '#fff', action:'settings', img: '/img/settings.png' },
@@ -223,7 +223,7 @@ var sliderMenu = function() {
 	
 	tableData = [];
 	
-	menuTitles.forEach(function(x){
+	menuOptions.forEach(function(x){
 		
 		var menuName = Titanium.UI.createLabel({
 		    color:x.color,

@@ -33,6 +33,8 @@
 		var _ = require('lib/underscore');
 		var Parse = require("lib/ti.parse")();
 		
+		Titanium.App.Properties.setString("apiEndpoint",  "http://appname.parseapp.com/api/stream/");
+		
 		var Parse_Rest_Key = '';
 		var Parse_App_Key = '';
 		var FB_APPID = '';
