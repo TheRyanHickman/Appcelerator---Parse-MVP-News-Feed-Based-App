@@ -51,7 +51,6 @@
         <module platform="android">analytics.google</module>
         <module platform="iphone">analytics.google</module>
         <module platform="iphone">com.0x82.testflight</module>
-        <module platform="iphone">com.widbook.blur</module>
         <module platform="iphone">dk.napp.drawer</module>
         <module platform="android">dk.napp.drawer</module>
         <module platform="android">fh.imagefactory</module>
