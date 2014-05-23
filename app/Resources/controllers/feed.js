@@ -20,7 +20,7 @@ var feed = function() {
 		    orientationModes: [Ti.UI.PORTRAIT],
 		    //tintColor:'#1a1a1a',
 		    //barColor: '#1a1a1a',
-		    backgroundColor:'#1a1a1a',
+		    backgroundColor:'#fff',
 		    //includeOpaqueBars: false,
 			//translucent: false,
 			//statusBarStyle:Titanium.UI.iPhone.StatusBar.TRANSLUCENT_BLACK
@@ -38,7 +38,7 @@ var feed = function() {
 		    title:'Feed',
 		    //tintColor:'#1a1a1a',
 		    //barColor: '#1a1a1a',
-		    backgroundColor:'#1a1a1a',
+		    backgroundColor:'#fff',
 		    //includeOpaqueBars: false,
 			//translucent: false,
 			//statusBarStyle:Titanium.UI.iPhone.StatusBar.TRANSLUCENT_BLACK
@@ -54,7 +54,7 @@ var feed = function() {
 	
 	
 	var activityIndicator = Ti.UI.createActivityIndicator({
-	  color: '#89D700',
+	  color: '#34313e',
 	  font: {fontFamily:'Helvetica Neue', fontSize:26, fontWeight:'bold'},
 	  message: '',
 	  style:((Ti.Platform.osname == 'android') ? Ti.UI.ActivityIndicatorStyle.DARK : Ti.UI.iPhone.ActivityIndicatorStyle.LIGHT),
@@ -116,7 +116,7 @@ var feed = function() {
 	  height: '100%',
 	  width: '100%',
 	  layout: 'vertical',
-	  backgroundColor: '#1a1a1a'
+	  backgroundColor: '#fff'
 	});
 
 	winx.add(feedView);
@@ -157,7 +157,7 @@ var sliderMenu = function() {
 
 	
 	var traywin = Ti.UI.createView({
-		backgroundColor: '#141414',
+		backgroundColor: '#34313e',
 		width: Ti.UI.FILL,
 		height: Ti.UI.FILL
 	});
@@ -166,7 +166,7 @@ var sliderMenu = function() {
 	
 	// create the label
 	var profile_Name = Titanium.UI.createLabel({
-	    color:'#89D700',
+	    color:'#34313e',
 	    height:28,
 	    width:'75%',
 	    top:5,
@@ -214,13 +214,9 @@ var sliderMenu = function() {
 	// Menu Titles
 				var menuTitles = [
 				   
-				    {title: 'InTake', color: '#abadab', action:'intake', img: '/img/intake.png' },
-				    {title: 'Take Selfie', color: '#abadab', action:'selfie', img: '/img/camera.png' },
-				    //{title: 'My Events', color: '#abadab', action:'soon' , img: 'img/events.png' },
-				    {title: 'Feed', color: '#abadab', action:'allFeed' , img: '/img/profile.png' },
-				    {title: 'Activity', color: '#abadab', action:'feed', img: '/img/feed.png' },
-				    {title: 'Settings', color: '#abadab', action:'settings', img: '/img/settings.png' },
-				    {title: 'Feedback', color: '#abadab', action:'feedback', img: '/img/feedback.png' },
+				    {title: 'Home', color: '#fff', action:'home', img: '/img/home.png' },
+				    {title: 'Settings', color: '#fff', action:'settings', img: '/img/settings.png' },
+				   
 				];
 	
 	
@@ -278,66 +274,28 @@ var sliderMenu = function() {
 		data:tableData,
 		top: 75,
 		separatorColor: '#121212',
-		backgroundColor: '#141414', //#121212'
+		backgroundColor: '#34313e', //#121212'
 		zIndex: 999
 	});
 	
 	tableView.addEventListener('click', function(e){
 		
 				
-				
-				
-				
-				
 				  drawer.toggleRightWindow();
 				
 		
 				  switch(e.rowData.action){
-				  	case 'selfie':
-				  		launchShareDialog();
-				  	break;
 				  	
-				  	case 'intake':
-				  		intakeProcess();
-				  	break;
-				  	
-				  	case 'allFeed':
-				  		init();
-				  	break;
-				  	
-				  	case 'profile':
-				  		showProfile(Parse.User.current().id);
-				  	break;
-				  	
-				  	case 'feed':
-				  		reloadTabbedFeedInit();
-				  		
-				  		if (Titanium.Platform.osname == 'android') 
-				  		{
-				  			
-				  			feedWin.open();
-				  			
-				  		} else {
-				  			
-				  			navWin.openWindow(feedWin);
-				  		}
-				  		
-				  		
-						//
-				  		//showfeed();
+				  	case 'home':
+				  		feed();
 				  	break;
 				  	
 				  	case 'settings':
 				  		settingsPanel();
 				  	break;
 				  	
-				  	case 'feedback':
-				  		launchFeedBackDialog();
-				  	break;
 				  	
-				  	default:
-				  		alert('coming soon');
-				  	break;
+				  
 				  }
 				    
 				});
